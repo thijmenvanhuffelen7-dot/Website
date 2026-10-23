@@ -1,0 +1,17 @@
+SCALVIA-WEBSITE LIVE ZETTEN
+
+1. Ga naar https://app.netlify.com/drop en maak een gratis account aan.
+2. Sleep deze hele map (scalvia-website) in het vak. Na een minuut staat de site online.
+3. Formulieren aanzetten:
+   - Netlify > jouw site > Forms > Enable form detection.
+   - Sleep de map daarna nog een keer op Deploys, zodat Netlify de formulieren vindt.
+   - Forms > Form notifications > Add notification > Email notification > jouw e-mailadres.
+4. Eigen domein (bijv. scalvia.nl):
+   - Koop het domein bij een registrar (bijv. TransIP of Hostnet).
+   - Netlify > Domain management > Add a domain, en volg de stappen.
+   - HTTPS zet Netlify automatisch aan.
+5. Na het koppelen van je domein, in index.html:
+   - Vervang content="og-image.png" door content="https://jouwdomein.nl/og-image.png"
+     zodat de preview goed werkt als je de link deelt in WhatsApp of LinkedIn.
+6. Voor je live gaat nog invullen:
+   - Laat privacy.html en voorwaarden.html nakijken.
