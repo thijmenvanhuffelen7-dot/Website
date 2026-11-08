@@ -507,8 +507,8 @@ input[type="range"]:focus-visible{outline:2px solid var(--green)}
 @media (prefers-reduced-motion: reduce){.avail-dot::after{animation:none}}
 @media (max-width:560px){.avail{border-radius:16px}}
 
-/* three mails instead of four */
-.mails{grid-template-columns:repeat(3,minmax(0,1fr))}
+/* four mails in one row */
+.mails{grid-template-columns:repeat(4,minmax(0,1fr))}
 .p1{left:2%}.p2{left:27%;top:2%}.p4{left:52%;top:8%}
 @media (max-width:960px){.mails{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:680px){.mails{grid-template-columns:minmax(0,1fr)}}
