@@ -762,8 +762,8 @@ input[type="range"]{background:linear-gradient(90deg,var(--sand) var(--p,10%),va
 .w2s figcaption b{color:var(--ink)}
 @media (max-width:680px){.w2s{grid-template-columns:minmax(0,1fr)}.w2s .arrow{transform:rotate(90deg);justify-self:center}}
 
-/* four mails on the work page */
-.mails{grid-template-columns:repeat(4,minmax(0,1fr))}
+/* three mails on the work page */
+.mails{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media (max-width:960px){.mails{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:680px){.mails{grid-template-columns:minmax(0,1fr)}}
 
@@ -806,3 +806,8 @@ input[type="range"]{background:linear-gradient(90deg,var(--sand) var(--p,10%),va
 .env-seal img{filter:invert(1) grayscale(1) brightness(.2)}
 .photo{color:var(--cta)}
 .button:hover{color:var(--cta-ink)}
+
+/* collage with three emails */
+.collage img:nth-child(1){left:5%;top:9%;transform:rotate(-6deg)}
+.collage img:nth-child(2){left:50%;top:-3%;transform:rotate(4deg)}
+.collage img:nth-child(3){left:30%;top:46%;transform:rotate(-2deg);z-index:2}
