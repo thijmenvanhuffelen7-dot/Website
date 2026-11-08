@@ -762,8 +762,8 @@ input[type="range"]{background:linear-gradient(90deg,var(--sand) var(--p,10%),va
 .w2s figcaption b{color:var(--ink)}
 @media (max-width:680px){.w2s{grid-template-columns:minmax(0,1fr)}.w2s .arrow{transform:rotate(90deg);justify-self:center}}
 
-/* six mails on the work page */
-.mails{grid-template-columns:repeat(3,minmax(0,1fr))}
+/* four mails on the work page */
+.mails{grid-template-columns:repeat(4,minmax(0,1fr))}
 @media (max-width:960px){.mails{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:680px){.mails{grid-template-columns:minmax(0,1fr)}}
 
