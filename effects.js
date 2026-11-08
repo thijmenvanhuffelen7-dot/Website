@@ -43,11 +43,25 @@
   /* Hero headline: words rise in one by one */
   var h1 = document.querySelector('.hero h1, .page-head h1');
   if (h1 && !h1.querySelector('.w')) {
-    var words = h1.textContent.trim().split(/\s+/);
-    h1.innerHTML = words.map(function (w, i) {
-      return '<span class="w"><span style="animation-delay:' + (i * 55) + 'ms">' + w + '</span></span>';
+    /* keep highlighted words (span.hl) highlighted after the split */
+    var parts = [];
+    h1.childNodes.forEach(function (n) {
+      var hl = n.nodeType === 1 && n.classList.contains('hl');
+      n.textContent.trim().split(/\s+/).forEach(function (w) { if (w) parts.push({ w: w, hl: hl }); });
+    });
+    h1.innerHTML = parts.map(function (p, i) {
+      return '<span class="w' + (p.hl ? ' hl' : '') + '"><span style="animation-delay:' + (i * 55) + 'ms">' + p.w + '</span></span>';
     }).join(' ');
     h1.classList.add('split');
+  }
+
+  /* Email reel: duplicate the cards once so the strip can loop without a gap */
+  var reel = document.getElementById('reel');
+  if (reel) {
+    Array.prototype.slice.call(reel.children).forEach(function (c) {
+      var d = c.cloneNode(true); d.setAttribute('aria-hidden', 'true'); reel.appendChild(d);
+    });
+    reel.classList.add('run');
   }
 
   /* Hero proofs: hover lift after the fan-out, and gentle parallax with the mouse */
@@ -74,7 +88,7 @@
   if (list) {
     var html = list.innerHTML;
     list.innerHTML = html + html.replace(/<li>/g, '<li aria-hidden="true">') + html.replace(/<li>/g, '<li aria-hidden="true">');
-    list.parentElement.classList.add('marquee');
+    (list.closest('.tools') || list.parentElement).classList.add('marquee');
   }
 
   /* Count-up for the big figures */
@@ -111,7 +125,7 @@
   /* Reveal on scroll, only for things below the fold, so the first screen is complete at rest */
   var targets = document.querySelectorAll([
     '.sec .intro', '.sec h2:not(.intro h2)', '.area', '.fig', '.acc', '.steps li', '.price', '.price-group',
-    '.shot', '.mail', '.faq', '.calc-in', '.calc-out', '.pr', '.case', '.b-card', '.market .stat', '.quote', '.close .inner > *', '.book', '.dl', '.about-grid > *', '.legal'
+    '.shot', '.mail', '.faq', '.calc-in', '.calc-out', '.pr', '.case', '.b-card', '.market .stat', '.quote', '.close-card', '.phase', '.me > *', '.reel .head', '.book', '.dl', '.about-grid > *', '.legal'
   ].join(','));
   var fold = window.innerHeight * 0.92;
   var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
