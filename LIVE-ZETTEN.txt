@@ -10,8 +10,18 @@ SCALVIA-WEBSITE LIVE ZETTEN
    - Koop het domein bij een registrar (bijv. TransIP of Hostnet).
    - Netlify > Domain management > Add a domain, en volg de stappen.
    - HTTPS zet Netlify automatisch aan.
-5. Na het koppelen van je domein, in index.html:
-   - Vervang content="og-image.png" door content="https://jouwdomein.nl/og-image.png"
-     zodat de preview goed werkt als je de link deelt in WhatsApp of LinkedIn.
-6. Voor je live gaat nog invullen:
-   - Laat privacy.html en voorwaarden.html nakijken.
+5. Na het koppelen van je domein:
+   - De site gaat uit van het domein scalvia.nl (in de links voor Google en in sitemap.xml).
+     Is je domein anders? Zoek en vervang dan "https://scalvia.nl" in alle .html-bestanden en in sitemap.xml.
+   - In en/index.html en nl/index.html: vervang content="../og-image.png" door
+     content="https://jouwdomein.nl/og-image.png", zodat de preview goed werkt als je de link deelt
+     in WhatsApp of LinkedIn.
+6. Taalversies:
+   - Engels staat in de map en/, Nederlands in nl/. Afbeeldingen, style.css en de scripts staan
+     één keer in de hoofdmap en worden door beide talen gebruikt.
+   - Wie de hoofdpagina opent, gaat naar nl/ als de browser Nederlands is, anders naar en/.
+     Dat regelt het bestand _redirects op Netlify. Oude links zoals /work.html gaan naar /en/work.html.
+   - Pas je een tekst aan? Doe dat in beide talen.
+7. Voor je live gaat nog invullen:
+   - Laat de privacyverklaring en de algemene voorwaarden nakijken (in en/ en nl/).
+   - Zet je foto als foto-thijmen.webp in de hoofdmap.

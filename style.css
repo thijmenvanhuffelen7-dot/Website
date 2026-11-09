@@ -857,3 +857,24 @@ input[type="range"]{background:linear-gradient(90deg,var(--sand) var(--p,10%),va
 .mail-modal .scroll{height:min(78vh,900px);border-radius:10px;background:#fff}
 .mail-modal .actions{margin-top:14px;justify-content:space-between;align-items:center}
 @media (prefers-reduced-motion: reduce){.mail-modal[open]{animation:none}}
+
+/* language switch */
+.lang{display:inline-flex;align-items:center;gap:2px;padding:3px;border-radius:999px;background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px var(--line);font-size:13px;font-weight:700;letter-spacing:.04em}
+.lang a,.lang span{display:grid;place-items:center;min-width:34px;height:30px;padding:0 8px;border-radius:999px;text-decoration:none;color:var(--muted)}
+.lang a:hover{color:var(--ink);background:rgba(255,255,255,.06)}
+.lang [aria-current]{color:var(--cta-ink);background:var(--ink)}
+@media (max-width:380px){.lang a,.lang span{min-width:30px;padding:0 6px}}
+@media (max-width:560px){
+  .top .inner{padding:6px 6px 6px 14px;gap:8px}
+  .top-actions{gap:6px}
+  .top .button.small{padding:9px 13px;font-size:13.5px}
+  .lang a,.lang span{min-width:28px;height:28px;padding:0 6px;font-size:12px}
+  .menu-btn{width:38px;height:38px}
+}
+.m-menu .lang.in-menu{display:none}
+@media (max-width:400px){
+  .top .lang{display:none}
+  .m-menu .lang.in-menu{display:inline-flex;margin-top:14px;font-size:14px}
+  .m-menu .lang.in-menu a,.m-menu .lang.in-menu span{min-width:44px;height:40px;padding:0 12px;border-bottom:0;font-size:14px}
+}
+@media (max-width:960px){.m-menu{background:#141414}}

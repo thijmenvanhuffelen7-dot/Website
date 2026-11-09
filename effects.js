@@ -1,6 +1,8 @@
 (function () {
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var doc = document.documentElement;
+  var nl = doc.lang === 'nl';
+  function t(en, nlText) { return nl ? nlText : en; }
 
   /* Nav: border and shadow once the page scrolls */
   var top = document.querySelector('.top');
@@ -13,9 +15,12 @@
   if (btn && nav) {
     var panel = document.createElement('nav');
     panel.className = 'm-menu'; panel.id = 'm-menu'; panel.setAttribute('aria-label', 'Menu');
-    panel.innerHTML = nav.innerHTML + '<a href="case-studies.html">Case studies</a><a href="contact.html">Contact</a>';
+    panel.innerHTML = nav.innerHTML + '<a href="case-studies.html">' + t('Case studies', 'Cases') + '</a><a href="contact.html">Contact</a>';
+    /* on narrow phones the language switch moves from the bar into this menu */
+    var lang = document.querySelector('.top .lang');
+    if (lang) { var lc = lang.cloneNode(true); lc.classList.add('in-menu'); panel.appendChild(lc); }
     document.body.appendChild(panel);
-    function setOpen(o) { btn.setAttribute('aria-expanded', o); btn.setAttribute('aria-label', o ? 'Close menu' : 'Open menu'); panel.classList.toggle('open', o); }
+    function setOpen(o) { btn.setAttribute('aria-expanded', o); btn.setAttribute('aria-label', o ? t('Close menu', 'Menu sluiten') : t('Open menu', 'Menu openen')); panel.classList.toggle('open', o); }
     btn.addEventListener('click', function () { setOpen(btn.getAttribute('aria-expanded') !== 'true'); });
     panel.addEventListener('click', function (e) { if (e.target.tagName === 'A') setOpen(false); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
@@ -25,7 +30,7 @@
   if (!/contact\.html$/.test(location.pathname)) {
     var bar = document.createElement('div');
     bar.className = 'mobile-cta';
-    bar.innerHTML = '<a class="button" href="https://cal.com/thijmen-scalvia/30min" target="_blank" rel="noopener">Book a free audit</a>';
+    bar.innerHTML = '<a class="button" href="https://cal.com/thijmen-scalvia/30min" target="_blank" rel="noopener">' + t('Book a free audit', 'Plan een gratis audit') + '</a>';
     document.body.appendChild(bar);
     var closeEl = document.querySelector('.close, .foot');
     function barCheck() {
@@ -164,7 +169,17 @@
 (function () {
   var feed = document.querySelector('#feed ul');
   if (!feed || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
-  var items = [
+  var items = document.documentElement.lang === 'nl' ? [
+    ['E-mail', 'Welkomstmail naar nieuwe abonnee'],
+    ['Klantenservice', 'Adreswijziging verwerkt'],
+    ['Boekhouding', 'Factuur naar je boekhouding'],
+    ['Retouren', 'Retourlabel automatisch gemaild'],
+    ['E-mail', 'Mail voor verlaten winkelwagen verstuurd'],
+    ['Bestellingen', 'Vertraging gemeld via WhatsApp'],
+    ['Reviews', 'Reviewverzoek verstuurd'],
+    ['Voorraad', 'Bestseller bijna op, melding in Slack'],
+    ['E-mail', 'Terugwinmail naar oud-klant']
+  ] : [
     ['Email', 'Welcome email to new subscriber'],
     ['Customer service', 'Address change processed'],
     ['Bookkeeping', 'Invoice sent to your bookkeeping'],

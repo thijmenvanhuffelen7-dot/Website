@@ -1,0 +1,14 @@
+# Netlify redirects (https://docs.netlify.com/routing/redirects/)
+
+# Home: Dutch browsers to /nl/, everyone else to /en/
+/                    /nl/                   302!  Language=nl
+/                    /en/                   302!
+
+# Old English URLs from before the language split
+/index.html          /en/                   301
+/work.html           /en/work.html          301
+/about.html          /en/about.html         301
+/case-studies.html   /en/case-studies.html  301
+/contact.html        /en/contact.html       301
+/privacy.html        /en/privacy.html       301
+/terms.html          /en/terms.html         301
