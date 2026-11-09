@@ -186,3 +186,21 @@
     while (feed.children.length > 4) feed.removeChild(feed.lastChild);
   }, 2800);
 })();
+
+/* Hero envelope: click the email to read the whole campaign */
+(function () {
+  var modal = document.getElementById('mail-modal');
+  if (!modal || typeof modal.showModal !== 'function') return;
+  var opener = null;
+  document.querySelectorAll('[data-open-mail]').forEach(function (b) {
+    b.addEventListener('click', function () { opener = b; modal.showModal(); modal.querySelector('.scroll').scrollTop = 0; });
+  });
+  modal.querySelector('[data-close-mail]').addEventListener('click', function () { modal.close(); });
+  /* click on the dark backdrop closes it too */
+  modal.addEventListener('click', function (e) {
+    if (e.target !== modal) return;
+    var r = modal.getBoundingClientRect();
+    if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) modal.close();
+  });
+  modal.addEventListener('close', function () { if (opener) opener.focus(); });
+})();

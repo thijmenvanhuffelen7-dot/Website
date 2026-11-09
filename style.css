@@ -661,9 +661,6 @@ input[type="range"]{background:linear-gradient(90deg,var(--sand) var(--p,10%),va
 .env-seal{position:absolute;left:50%;top:58%;width:44px;height:44px;margin-left:-22px;border-radius:50%;z-index:3;
   background:radial-gradient(circle at 35% 30%,#363636,#121212);box-shadow:0 6px 14px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.1);display:grid;place-items:center}
 .env-seal img{width:22px;height:auto;opacity:.95}
-.fx .env-letter{animation:letterUp 1.4s .5s cubic-bezier(.2,.8,.2,1) both}
-@keyframes letterUp{from{transform:translateY(96%)}to{transform:translateY(46%)}}
-.env:hover .env-letter{transform:translateY(40%);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
 
 .scene .feed{left:auto;right:0;bottom:16%;width:300px;text-align:left;background:rgba(20,20,20,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .scene .feed li{border-top-color:var(--line)}
@@ -778,7 +775,6 @@ input[type="range"]{background:linear-gradient(90deg,var(--sand) var(--p,10%),va
 }
 
 /* fixes after review */
-.env-letter img{margin-top:-17%}  /* skip the email's logo bar */
 .tools .inner{flex-direction:column;align-items:center;gap:18px}
 .tools.marquee .inner{width:100%}
 .tools.marquee ul{max-width:none}
@@ -803,7 +799,6 @@ input[type="range"]{background:linear-gradient(90deg,var(--sand) var(--p,10%),va
 .env-back,.env-front{box-shadow:inset 0 0 0 1px rgba(196,255,61,.35)}
 .env{filter:drop-shadow(0 40px 60px rgba(0,0,0,.7)) drop-shadow(0 0 40px rgba(196,255,61,.18))}
 .env-seal{background:radial-gradient(circle at 35% 30%,#D7FF7A,#C4FF3D);box-shadow:0 0 24px rgba(196,255,61,.55)}
-.env-seal img{filter:invert(1) grayscale(1) brightness(.2)}
 .photo{color:var(--cta)}
 .button:hover{color:var(--cta-ink)}
 
@@ -811,3 +806,54 @@ input[type="range"]{background:linear-gradient(90deg,var(--sand) var(--p,10%),va
 .collage img:nth-child(1){left:5%;top:9%;transform:rotate(-6deg)}
 .collage img:nth-child(2){left:50%;top:-3%;transform:rotate(4deg)}
 .collage img:nth-child(3){left:30%;top:46%;transform:rotate(-2deg);z-index:2}
+
+/* ---------- envelope that really opens ----------
+   Order on load: the seal breaks, the flap folds open backwards, the campaign
+   slides out and then scrolls through itself. Click the email to read it in full.
+   Without .fx (reduced motion) everything simply shows in the open state. */
+.scene{height:clamp(440px,46vw,560px)}
+.env-back{z-index:0}
+.env-flap{position:absolute;inset:0;z-index:1;border-radius:10px 10px 0 0;transform-origin:50% 0;
+  transform:perspective(900px) rotateX(180deg);
+  background:linear-gradient(180deg,#232A18,#171B10);
+  clip-path:polygon(0 0,100% 0,100% 30%,50% 68%,0 30%)}
+.env-letter{z-index:2;bottom:12%;height:150%;padding:0;border:0;cursor:zoom-in;font:inherit;
+  transform:translateY(6%);transition:transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease}
+.env-letter img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 3%;margin:0}
+.env-front{z-index:3}
+.env-seal{z-index:5;transform:scale(0);opacity:0}
+.env:hover .env-letter{transform:translateY(2%)}
+.env-letter:focus-visible{outline:2px solid var(--cta);outline-offset:4px}
+.env-hint{position:absolute;left:50%;bottom:-34px;transform:translateX(-50%);white-space:nowrap;font-size:13.5px;color:var(--muted);pointer-events:none}
+
+.fx .env-seal{animation:sealBreak .7s .25s cubic-bezier(.3,1.5,.5,1) both}
+.fx .env-flap{animation:flapOpen .9s .7s cubic-bezier(.5,0,.3,1) both}
+.fx .env-letter{animation:letterOut 1.2s 1.45s cubic-bezier(.2,.8,.2,1) both}
+.fx .env-letter img{animation:campaign 16s 3.2s ease-in-out infinite alternate}
+.fx .env-hint{animation:fadeIn .6s 2.8s both}
+@keyframes sealBreak{0%{transform:scale(1);opacity:1}40%{transform:scale(1.18);opacity:1}100%{transform:scale(0) rotate(40deg);opacity:0}}
+/* z-index flips halfway, so the closed flap covers the email and the open flap sits behind it */
+@keyframes flapOpen{
+  0%{transform:perspective(900px) rotateX(0deg);z-index:4;background:linear-gradient(180deg,#2E3622,#1E2316)}
+  49%{z-index:4}
+  50%{z-index:1}
+  100%{transform:perspective(900px) rotateX(180deg);z-index:1}}
+@keyframes letterOut{from{transform:translateY(100%)}to{transform:translateY(6%)}}
+@keyframes campaign{0%,12%{object-position:50% 3%}88%,100%{object-position:50% 100%}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.env:hover .env-letter img{animation-play-state:paused}
+@media (max-width:680px){.scene{height:420px}}
+
+/* full campaign in a dialog */
+.mail-modal{border:0;padding:0;background:transparent;max-width:min(560px,92vw);width:100%;color:var(--ink);overflow:visible}
+.mail-modal::backdrop{background:rgba(5,6,4,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.mail-modal[open]{animation:modalIn .4s cubic-bezier(.2,.8,.2,1)}
+@keyframes modalIn{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}
+.mail-modal .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.mail-modal .bar p{font-size:15px;color:var(--muted)}
+.mail-modal .bar b{color:var(--ink);font-weight:600}
+.modal-close{flex:none;width:42px;height:42px;border-radius:50%;border:0;cursor:pointer;background:var(--sheet-2);color:var(--ink);font-size:22px;line-height:1;box-shadow:inset 0 0 0 1px var(--line)}
+.modal-close:hover{box-shadow:inset 0 0 0 1px var(--cta)}
+.mail-modal .scroll{height:min(78vh,900px);border-radius:10px;background:#fff}
+.mail-modal .actions{margin-top:14px;justify-content:space-between;align-items:center}
+@media (prefers-reduced-motion: reduce){.mail-modal[open]{animation:none}}
