@@ -51,10 +51,12 @@
     /* keep highlighted words (span.hl) highlighted after the split */
     var parts = [];
     h1.childNodes.forEach(function (n) {
+      if (n.nodeName === 'BR') { parts.push({ br: true }); return; }
       var hl = n.nodeType === 1 && n.classList.contains('hl');
       n.textContent.trim().split(/\s+/).forEach(function (w) { if (w) parts.push({ w: w, hl: hl }); });
     });
     h1.innerHTML = parts.map(function (p, i) {
+      if (p.br) return '<br>';
       return '<span class="w' + (p.hl ? ' hl' : '') + '"><span style="animation-delay:' + (i * 55) + 'ms">' + p.w + '</span></span>';
     }).join(' ');
     h1.classList.add('split');

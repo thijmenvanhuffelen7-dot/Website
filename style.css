@@ -878,3 +878,5 @@ input[type="range"]{background:linear-gradient(90deg,var(--sand) var(--p,10%),va
   .m-menu .lang.in-menu a,.m-menu .lang.in-menu span{min-width:44px;height:40px;padding:0 12px;border-bottom:0;font-size:14px}
 }
 @media (max-width:960px){.m-menu{background:#141414}}
+
+.hero h1{max-width:none}
