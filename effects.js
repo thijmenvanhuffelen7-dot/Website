@@ -15,7 +15,7 @@
   if (btn && nav) {
     var panel = document.createElement('nav');
     panel.className = 'm-menu'; panel.id = 'm-menu'; panel.setAttribute('aria-label', 'Menu');
-    panel.innerHTML = nav.innerHTML + '<a href="case-studies.html">' + t('Case studies', 'Cases') + '</a><a href="contact.html">Contact</a>';
+    panel.innerHTML = nav.innerHTML + '<a href="contact.html">Contact</a>';
     /* on narrow phones the language switch moves from the bar into this menu */
     var lang = document.querySelector('.top .lang');
     if (lang) { var lc = lang.cloneNode(true); lc.classList.add('in-menu'); panel.appendChild(lc); }
@@ -30,7 +30,7 @@
   if (!/contact\.html$/.test(location.pathname)) {
     var bar = document.createElement('div');
     bar.className = 'mobile-cta';
-    bar.innerHTML = '<a class="button" href="https://cal.com/thijmen-scalvia/30min" target="_blank" rel="noopener">' + t('Book a free audit', 'Plan een gratis audit') + '</a>';
+    bar.innerHTML = '<a class="button" href="https://cal.com/thijmen-scalvia/30min" target="_blank" rel="noopener">' + t('Book a free strategy call', 'Plan een gratis strategiegesprek') + '</a>';
     document.body.appendChild(bar);
     var closeEl = document.querySelector('.close, .foot');
     function barCheck() {
@@ -100,6 +100,7 @@
 
   /* Count-up for the big figures */
   function countUp(el) {
+    if (el.querySelector('.todo')) return; /* placeholder text, not a number */
     var txt = el.textContent.trim();
     var m = txt.match(/^([^\d]*)([\d.]+)(.*)$/);
     if (!m) return;
@@ -172,25 +173,23 @@
   var feed = document.querySelector('#feed ul');
   if (!feed || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
   var items = document.documentElement.lang === 'nl' ? [
-    ['E-mail', 'Welkomstmail naar nieuwe abonnee'],
-    ['Klantenservice', 'Adreswijziging verwerkt'],
-    ['Boekhouding', 'Factuur naar je boekhouding'],
-    ['Retouren', 'Retourlabel automatisch gemaild'],
-    ['E-mail', 'Mail voor verlaten winkelwagen verstuurd'],
-    ['Bestellingen', 'Vertraging gemeld via WhatsApp'],
-    ['Reviews', 'Reviewverzoek verstuurd'],
-    ['Voorraad', 'Bestseller bijna op, melding in Slack'],
-    ['E-mail', 'Terugwinmail naar oud-klant']
+    ['Creatives', 'Nieuwe hooks in test'],
+    ['Opschalen', 'Winnende ad krijgt meer budget'],
+    ['Testen', 'Zwakke ad uitgezet'],
+    ['Rapportage', 'Weekoverzicht verstuurd'],
+    ['UGC', 'Nieuwe UGC-video klaar voor test'],
+    ['TikTok', 'Nieuwe campagne live'],
+    ['Meta', 'Doelgroep bijgesteld'],
+    ['Creatives', 'Variant met nieuwe opening gemaakt']
   ] : [
-    ['Email', 'Welcome email to new subscriber'],
-    ['Customer service', 'Address change processed'],
-    ['Bookkeeping', 'Invoice sent to your bookkeeping'],
-    ['Returns', 'Return label emailed automatically'],
-    ['Email', 'Abandoned cart email sent'],
-    ['Orders', 'Delay reported via WhatsApp'],
-    ['Reviews', 'Review request sent'],
-    ['Inventory', 'Bestseller running low, alert in Slack'],
-    ['Email', 'Win-back email to past customer']
+    ['Creatives', 'New hooks in test'],
+    ['Scaling', 'Winning ad gets more budget'],
+    ['Testing', 'Weak ad switched off'],
+    ['Reporting', 'Weekly overview sent'],
+    ['UGC', 'New UGC video ready to test'],
+    ['TikTok', 'New campaign live'],
+    ['Meta', 'Audience adjusted'],
+    ['Creatives', 'Variant with a new opening made']
   ];
   var i = 0;
   setInterval(function () {
