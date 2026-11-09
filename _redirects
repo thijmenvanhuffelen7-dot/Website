@@ -6,15 +6,9 @@
 
 # Old English URLs from before the language split
 /index.html          /en/                   301
-/work.html           /en/                   301
+/work.html           /en/work.html          301
 /about.html          /en/about.html         301
-/case-studies.html   /en/                   301
+/case-studies.html   /en/case-studies.html  301
 /contact.html        /en/contact.html       301
 /privacy.html        /en/privacy.html       301
 /terms.html          /en/terms.html         301
-
-# Work and case-study pages were removed when the site moved to brand scaling with ads
-/en/work.html          /en/   301
-/en/case-studies.html  /en/   301
-/nl/work.html          /nl/   301
-/nl/case-studies.html  /nl/   301

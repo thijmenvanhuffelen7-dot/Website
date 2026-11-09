@@ -78,7 +78,6 @@
       e.preventDefault();
       var msg = form.querySelector('.form-msg');
       var btn = form.querySelector('button[type="submit"]');
-      var label = btn.textContent;
       btn.disabled = true; btn.textContent = t('Sending…', 'Versturen…');
       var body = new URLSearchParams(new FormData(form)).toString();
       fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body })
@@ -91,7 +90,7 @@
           msg.hidden = false;
         })
         .catch(function () {
-          btn.disabled = false; btn.textContent = label;
+          btn.disabled = false; btn.textContent = t('Request the free audit', 'Vraag de gratis audit aan');
           msg.className = 'form-msg err';
           msg.textContent = t('Sending failed. Email your details to ', 'Versturen is mislukt. Mail je gegevens naar ') + EMAIL + t(' and I will get back to you.', ', dan neem ik contact met je op.');
           msg.hidden = false;
